@@ -68,14 +68,13 @@ exports.login = async (req, res)=>{
             return res.status(400).json({message:"Invalid credentials",success:false});}
         else{
 
-            let token = jwt.sign({payload}, process.env.JWT_SECRET, {expiresIn:'1h'});
+            let token = jwt.sign(payload, process.env.JWT_SECRET);
 
-            console.log(user)
+            user = user.toObject();      
             user.token = token; // Store the token in the user object (optional)
-            console.log(user)
-         
+      
             user.password = undefined; // Exclude password from the response
-            console.log(user)
+  
             const options ={
                 expiresIn : new Date(Date.now()+3*24*60*60*1000),       // 3 days
                 httpOnly:true      // client side script cannot access the cookie
