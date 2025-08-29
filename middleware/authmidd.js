@@ -11,6 +11,8 @@ exports.Auth = (req,res,next)=>{
         console.log("Request cookies:", req.cookies);
         
         const token = req.body.token || req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
+        //  console.log("Request cookies:", req.cookies.token);
+
 
         if(!token){
             return res.status(401).json({
